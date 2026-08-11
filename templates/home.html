@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}IPL Analytics — Home{% endblock %}
+
+{% block content %}
+<div class="card text-center" style="margin-top:3rem; padding: 3rem;">
+    <div style="font-size:3.5rem;">🏏</div>
+    <h1 style="font-size:2rem; margin: 1rem 0 0.5rem; color:#1a1a2e;">IPL Analytics</h1>
+    <p class="text-muted" style="font-size:1rem; margin-bottom:2rem;">
+        Ball-by-ball IPL data — batting records, bowling stats, head‑to‑head, predictions and more.
+    </p>
+    {% if session.user_id %}
+        <a href="/dashboard" class="btn">Go to Dashboard</a>
+    {% else %}
+        <a href="/register" class="btn">Get Started</a>
+        <a href="/login" class="btn btn-outline" style="margin-left:0.8rem;">Log In</a>
+    {% endif %}
+</div>
+
+<div class="two-col" style="margin-top:1rem;">
+    <div class="card">
+        <h2>🔢 What's inside</h2>
+        <ul style="margin-top:0.8rem; padding-left:1.2rem; line-height:2;">
+            <li>Career batting &amp; bowling stats</li>
+            <li>Season-by-season breakdowns</li>
+            <li>Powerplay / Middle / Death split</li>
+            <li>Batsman vs Bowler H2H (ball level)</li>
+            <li>All-time IPL records</li>
+            <li>Custom Impact Score</li>
+            <li>Rule-based match predictor</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h2>📊 Built with</h2>
+        <ul style="margin-top:0.8rem; padding-left:1.2rem; line-height:2;">
+            <li>Python &amp; pandas (200k+ deliveries)</li>
+            <li>Flask REST API backend</li>
+            <li>Ball-by-ball aggregation</li>
+            <li>Star schema data model</li>
+            <li>Session-based auth (SQLite)</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

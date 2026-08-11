@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Batsman Record — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🏏 Batsman Record</h2>
+    <form method="GET" action="/batsman" style="display:flex; gap:0.8rem; align-items:flex-end;">
+        <div class="form-group" style="flex:1; margin:0;">
+            <label>Player Name</label>
+            <input type="text" name="batsman" value="{{ name }}" placeholder="e.g. V Kohli">
+        </div>
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+    {#
+        result = { "all": {...career stats...}, "against": {...team breakdown...} }
+        We access result['all'] for career stats and result['against'] for the table.
+        Using 'career' as the variable name — never use 'all' as it conflicts with builtins.
+    #}
+    {% set career  = result['all'] %}
+    {% set against = result['against'] %}
+
+    <div class="card">
+        <h2>{{ name }} — Career Stats</h2>
+        <div class="stats-grid">
+
+            <div class="stat-box">
+                <div class="val">{{ career.runs }}</div>
+                <div class="lbl">Runs</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.innings }}</div>
+                <div class="lbl">Innings</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">
+                    {% if career.average is none %}—
+                    {% else %}{{ "%.1f" | format(career.average | float) }}
+                    {% endif %}
+                </div>
+                <div class="lbl">Average</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ "%.1f" | format(career.strikeRate | float) }}</div>
+                <div class="lbl">Strike Rate</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.hundreds }}</div>
+                <div class="lbl">100s</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.fifties }}</div>
+                <div class="lbl">50s</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.fours }}</div>
+                <div class="lbl">Fours</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.sixes }}</div>
+                <div class="lbl">Sixes</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.highestScore }}</div>
+                <div class="lbl">Highest</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.notOut }}</div>
+                <div class="lbl">Not Outs</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.mom }}</div>
+                <div class="lbl">MOM Awards</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="val">{{ career.boundaryPercentage }}%</div>
+                <div class="lbl">Boundary %</div>
+            </div>
+
+        </div>
+    </div>
+
+    {% if against %}
+    <div class="card">
+        <h2>Performance vs Each Team</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Opposition</th>
+                    <th>Runs</th>
+                    <th>Innings</th>
+                    <th>Avg</th>
+                    <th>SR</th>
+                    <th>100s</th>
+                    <th>50s</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team, s in against.items() %}
+                    {% if s is not none and s.runs is defined and s.runs > 0 %}
+                    <tr>
+                        <td>{{ team }}</td>
+                        <td>{{ s.runs }}</td>
+                        <td>{{ s.innings }}</td>
+                        <td>
+                            {% if s.average is none %}—
+                            {% else %}{{ "%.1f" | format(s.average | float) }}
+                            {% endif %}
+                        </td>
+                        <td>{{ "%.1f" | format(s.strikeRate | float) }}</td>
+                        <td>{{ s.hundreds }}</td>
+                        <td>{{ s.fifties }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+{% endif %}
+
+{% if not result and not error and not name %}
+<div class="card text-center" style="color:#888; padding:2.5rem;">
+    <p>Enter a player name above to see their career batting stats.</p>
+    <p class="text-muted" style="margin-top:0.5rem;">Try: V Kohli, RG Sharma, SR Watson</p>
+</div>
+{% endif %}
+
+{% endblock %}

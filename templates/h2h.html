@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Player H2H — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>⚡ Batsman vs Bowler — Head to Head</h2>
+    <p class="text-muted" style="margin-bottom:1rem;">Ball-level stats for every delivery between these two players.</p>
+    <form method="GET" action="/h2h">
+        <div class="two-col">
+            <div class="form-group">
+                <label>Batsman</label>
+                <input type="text" name="batsman" value="{{ batsman }}" placeholder="e.g. V Kohli">
+            </div>
+            <div class="form-group">
+                <label>Bowler</label>
+                <input type="text" name="bowler" value="{{ bowler }}" placeholder="e.g. JJ Bumrah">
+            </div>
+        </div>
+        <button type="submit" class="btn">Find H2H</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+<div class="card">
+    <h2>{{ result.batsman }} vs {{ result.bowler }}</h2>
+    <div class="stats-grid" style="margin-top:1rem;">
+        <div class="stat-box"><div class="val">{{ result.balls }}</div><div class="lbl">Balls Faced</div></div>
+        <div class="stat-box"><div class="val">{{ result.runs }}</div><div class="lbl">Runs Scored</div></div>
+        <div class="stat-box"><div class="val">{{ result.dismissals }}</div><div class="lbl">Dismissals</div></div>
+        <div class="stat-box"><div class="val">{{ result.strikeRate }}</div><div class="lbl">Strike Rate</div></div>
+        <div class="stat-box"><div class="val">{{ result.dotBalls }}</div><div class="lbl">Dot Balls</div></div>
+        <div class="stat-box"><div class="val">{{ result.dotBallPercentage }}%</div><div class="lbl">Dot Ball %</div></div>
+        <div class="stat-box"><div class="val">{{ result.fours }}</div><div class="lbl">Fours</div></div>
+        <div class="stat-box"><div class="val">{{ result.sixes }}</div><div class="lbl">Sixes</div></div>
+    </div>
+
+    {% if result.dismissalTypes %}
+    <h3 style="margin-top:1.5rem;">Dismissal Types</h3>
+    <table style="max-width:350px; margin-top:0.5rem;">
+        <thead><tr><th>Mode</th><th>Count</th></tr></thead>
+        <tbody>
+            {% for mode, count in result.dismissalTypes.items() %}
+            <tr><td>{{ mode }}</td><td>{{ count }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endif %}
+
+{% if not result and not error and not batsman %}
+<div class="card text-center" style="color:#888; padding:2.5rem;">
+    <p>Enter a batsman and bowler name to see their ball-level stats.</p>
+    <p class="text-muted" style="margin-top:0.5rem;">Try: V Kohli vs JJ Bumrah</p>
+</div>
+{% endif %}
+{% endblock %}

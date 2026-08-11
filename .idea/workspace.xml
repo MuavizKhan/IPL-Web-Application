@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="acda3a67-e876-4c97-af14-d7aa6bedc13d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/ipl-web-app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/batsman.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/bowler.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/h2h.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/impact.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/leaderboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/predict.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/team.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/team_record.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.000000702986344" />
+      <entry key="MS500" value="1.0588016317196116" />
+      <entry key="S2" value="1.4924332214477753" />
+      <entry key="S5" value="1.7532496486532638" />
+      <entry key="S10" value="1.8678995613855693" />
+      <entry key="S30" value="1.9538713900384574" />
+      <entry key="S60" value="1.9766633964874782" />
+      <entry key="M2" value="1.9882628175174246" />
+      <entry key="M5" value="1.9952884913528242" />
+      <entry key="M10" value="1.9976415231993414" />
+      <entry key="M15" value="1.998516605221924" />
+      <entry key="M30" value="2.14821428405025" />
+      <entry key="H1" value="8.315098593162645" />
+      <entry key="H2" value="43.53377588808823" />
+      <entry key="H4" value="108.7830241268896" />
+      <entry key="D1" value="236.86072242935467" />
+      <entry key="W1" value="270.8701304291216" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="1.4227704730387837E-184" />
+      <entry key="S60" value="1.4028991710597423E-92" />
+      <entry key="M2" value="1.6195388474813984E-46" />
+      <entry key="M5" value="8.504592727901063E-19" />
+      <entry key="M10" value="1.7396420988346548E-9" />
+      <entry key="M15" value="2.3931332334570723E-6" />
+      <entry key="M30" value="0.003577271793880397" />
+      <entry key="H1" value="0.14417281773085786" />
+      <entry key="H2" value="0.9262239767369674" />
+      <entry key="H4" value="2.3549324309480966" />
+      <entry key="D1" value="5.133248403053448" />
+      <entry key="W1" value="5.867726186750032" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.9460582461162812" />
+      <entry key="MS500" value="1.045927246420753" />
+      <entry key="S2" value="1.4857547958562511" />
+      <entry key="S5" value="1.7497433335609545" />
+      <entry key="S10" value="1.8659626607888535" />
+      <entry key="S30" value="1.9531798030317495" />
+      <entry key="S60" value="1.9763115098732231" />
+      <entry key="M2" value="1.9880853236068223" />
+      <entry key="M5" value="1.995217118095932" />
+      <entry key="M10" value="1.9976057753746548" />
+      <entry key="M15" value="1.9984951280326166" />
+      <entry key="M30" value="2.151760420305295" />
+      <entry key="H1" value="8.458863619460287" />
+      <entry key="H2" value="44.458686607782695" />
+      <entry key="H4" value="111.13627851884341" />
+      <entry key="D1" value="241.99335851444383" />
+      <entry key="W1" value="276.7377565520436" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3HY74CSxHjYgXQG7KpSnaTCB5K1" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.app.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Muaviz Khan/PycharmProjects/PythonProject/ipl-web-app/templates",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Muaviz Khan\PycharmProjects\PythonProject\ipl-web-app\templates" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-245168a56dbd-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.25134.203" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="acda3a67-e876-4c97-af14-d7aa6bedc13d" name="Changes" comment="" />
+      <created>1786032954258</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1786032954258</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Bowler Record — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🎯 Bowler Record</h2>
+    <form method="GET" action="/bowler" style="display:flex; gap:0.8rem; align-items:flex-end;">
+        <div class="form-group" style="flex:1; margin:0;">
+            <label>Player Name</label>
+            <input type="text" name="bowler" value="{{ name }}" placeholder="e.g. JJ Bumrah">
+        </div>
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+    {% set stats = result[name] if name in result else result %}
+    {% set all = stats.get('all', stats) %}
+
+    <div class="card">
+        <h2>{{ name }} — Career Stats</h2>
+        <div class="stats-grid">
+            <div class="stat-box"><div class="val">{{ all.wickets }}</div><div class="lbl">Wickets</div></div>
+            <div class="stat-box"><div class="val">{{ all.innings }}</div><div class="lbl">Innings</div></div>
+            <div class="stat-box"><div class="val">{{ "%.2f"|format(all.economy|float) }}</div><div class="lbl">Economy</div></div>
+            <div class="stat-box">
+                <div class="val">
+                    {% if all.average == None %}—
+                    {% else %}{{ "%.1f"|format(all.average|float) }}{% endif %}
+                </div>
+                <div class="lbl">Average</div>
+            </div>
+            <div class="stat-box"><div class="val">{{ all.bestFigure }}</div><div class="lbl">Best Figure</div></div>
+            <div class="stat-box"><div class="val">{{ all['3+Wickets'] }}</div><div class="lbl">3W+ Hauls</div></div>
+            <div class="stat-box"><div class="val">{{ all['5+Wickets'] }}</div><div class="lbl">5W Hauls</div></div>
+            <div class="stat-box"><div class="val">{{ all.dotBalls }}</div><div class="lbl">Dot Balls</div></div>
+            <div class="stat-box"><div class="val">{{ all.dotBallPercentage }}%</div><div class="lbl">Dot Ball %</div></div>
+            <div class="stat-box"><div class="val">{{ all.mom }}</div><div class="lbl">MOM Awards</div></div>
+        </div>
+    </div>
+
+    {% if stats.against %}
+    <div class="card">
+        <h2>Performance vs Each Team</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Opposition</th>
+                    <th>Wickets</th>
+                    <th>Innings</th>
+                    <th>Economy</th>
+                    <th>Average</th>
+                    <th>Best</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team, s in stats.against.items() %}
+                    {% if s and s.innings and s.innings > 0 %}
+                    <tr>
+                        <td>{{ team }}</td>
+                        <td>{{ s.wickets }}</td>
+                        <td>{{ s.innings }}</td>
+                        <td>{{ "%.2f"|format(s.economy|float) }}</td>
+                        <td>{{ "%.1f"|format(s.average|float) if s.average else "—" }}</td>
+                        <td>{{ s.bestFigure }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+{% endif %}
+
+{% if not result and not error and not name %}
+<div class="card text-center" style="color:#888; padding:2.5rem;">
+    <p>Enter a player name above to see their career bowling stats.</p>
+    <p class="text-muted" style="margin-top:0.5rem;">Try: JJ Bumrah, SL Malinga, Harbhajan Singh</p>
+</div>
+{% endif %}
+{% endblock %}

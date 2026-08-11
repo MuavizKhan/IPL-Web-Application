@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>📊 Leaderboard</h2>
+    <form method="GET" action="/leaderboard" style="display:flex; gap:0.8rem; align-items:flex-end;">
+        <div class="form-group" style="flex:1; margin:0;">
+            <label>Filter by Season (optional)</label>
+            <input type="text" name="season" value="{{ season }}" placeholder="e.g. 2023">
+        </div>
+        <button type="submit" class="btn">Filter</button>
+        <a href="/leaderboard" class="btn btn-outline">All Time</a>
+    </form>
+</div>
+
+<div class="two-col">
+    <div class="card">
+        <h2>🏏 Top Batsmen</h2>
+        {% if bat %}
+        <table>
+            <thead><tr><th>#</th><th>Player</th><th>Runs</th><th>Innings</th><th>Avg</th><th>SR</th></tr></thead>
+            <tbody>
+                {% for p in bat %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ p.batter }}</td>
+                    <td>{{ p.runs }}</td>
+                    <td>{{ p.innings }}</td>
+                    <td>{{ "%.1f"|format(p.average|float) if p.average and p.average != None else "—" }}</td>
+                    <td>{{ "%.1f"|format(p.strikeRate|float) if p.strikeRate else "—" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted">No data found.</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>🎯 Top Bowlers</h2>
+        {% if bowl %}
+        <table>
+            <thead><tr><th>#</th><th>Player</th><th>Wkts</th><th>Innings</th><th>Eco</th><th>Avg</th></tr></thead>
+            <tbody>
+                {% for p in bowl %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ p.bowler }}</td>
+                    <td>{{ p.wickets }}</td>
+                    <td>{{ p.innings }}</td>
+                    <td>{{ "%.2f"|format(p.economy|float) }}</td>
+                    <td>{{ "%.1f"|format(p.average|float) if p.average and p.average != None else "—" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted">No data found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

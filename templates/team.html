@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Team vs Team — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🆚 Team vs Team</h2>
+    <form method="GET" action="/team">
+        <div class="two-col">
+            <div class="form-group">
+                <label>Team 1</label>
+                <select name="team1">
+                    <option value="">Select Team 1</option>
+                    {% for t in teams %}
+                        <option value="{{ t }}" {% if t == team1 %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Team 2</label>
+                <select name="team2">
+                    <option value="">Select Team 2</option>
+                    {% for t in teams %}
+                        <option value="{{ t }}" {% if t == team2 %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn">Compare</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+<div class="card">
+    <h2>{{ team1 }} vs {{ team2 }}</h2>
+    <div class="stats-grid" style="margin-top:1rem;">
+        <div class="stat-box"><div class="val">{{ result.totalMatches }}</div><div class="lbl">Total Matches</div></div>
+        <div class="stat-box"><div class="val">{{ result[team1] }}</div><div class="lbl">{{ team1 }} Wins</div></div>
+        <div class="stat-box"><div class="val">{{ result[team2] }}</div><div class="lbl">{{ team2 }} Wins</div></div>
+        <div class="stat-box"><div class="val">{{ result.draws }}</div><div class="lbl">No Result</div></div>
+    </div>
+
+    {% if result.last5Results %}
+    <h3 style="margin-top:1.5rem;">Last 5 Matches</h3>
+    <table>
+        <thead>
+            <tr><th>Match ID</th><th>Winner</th><th>Won By</th><th>Margin</th></tr>
+        </thead>
+        <tbody>
+            {% for m in result.last5Results %}
+            <tr>
+                <td>{{ m.ID }}</td>
+                <td>{{ m.WinningTeam }}</td>
+                <td>{{ m.WonBy }}</td>
+                <td>{{ m.Margin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

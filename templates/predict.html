@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Match Predictor — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🔮 Match Predictor</h2>
+    <p class="text-muted" style="margin-bottom:1rem;">Rule-based win probability using H2H, venue record, and recent form.</p>
+    <form method="GET" action="/predict">
+        <div class="two-col">
+            <div class="form-group">
+                <label>Team 1</label>
+                <select name="team1">
+                    <option value="">Select Team 1</option>
+                    {% for t in teams %}
+                        <option value="{{ t }}" {% if t == team1 %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Team 2</label>
+                <select name="team2">
+                    <option value="">Select Team 2</option>
+                    {% for t in teams %}
+                        <option value="{{ t }}" {% if t == team2 %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Venue (optional)</label>
+            <input type="text" name="venue" value="{{ venue }}" placeholder="e.g. Wankhede">
+        </div>
+        <button type="submit" class="btn">Predict</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+<div class="card">
+    <h2>Prediction: {{ team1 }} vs {{ team2 }}</h2>
+
+    <div style="margin:1.5rem 0;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+            <span><strong>{{ team1 }}</strong></span>
+            <span><strong>{{ team2 }}</strong></span>
+        </div>
+        {% set p1_key = team1 + 'WinProbability' %}
+        {% set p2_key = team2 + 'WinProbability' %}
+        {% set p1 = result[p1_key] %}
+        {% set p2 = result[p2_key] %}
+        <div class="prob-bar">
+            <div class="prob-fill-1" style="width:{{ p1 }}%">{{ p1 }}%</div>
+            <div class="prob-fill-2" style="width:{{ p2 }}%">{{ p2 }}%</div>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="val">{{ result.predictedWinner }}</div>
+            <div class="lbl">Predicted Winner</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">{{ result.confidence }}</div>
+            <div class="lbl">Confidence</div>
+        </div>
+    </div>
+
+    {% if result.keyFactors %}
+    <h3 style="margin-top:1.5rem;">Key Factors</h3>
+    <ul style="margin-top:0.8rem; padding-left:1.2rem; line-height:2;">
+        {% for f in result.keyFactors %}
+            <li>{{ f }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="card" style="background:#f8f9fa; margin-top:1rem;">
+        <p class="text-muted" style="font-size:0.85rem;">
+            <strong>Weights:</strong>
+            H2H {{ result.formulaWeights.h2hWinPct }} |
+            Venue {{ result.formulaWeights.venueWinPct }} |
+            Recent Form {{ result.formulaWeights.recentForm }} |
+            Toss {{ result.formulaWeights.tossAdvantage }}
+            <br>{{ result.disclaimer }}
+        </p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

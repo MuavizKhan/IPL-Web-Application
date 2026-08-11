@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Impact Score — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>💥 Player Impact Score</h2>
+    <p class="text-muted" style="margin-bottom:1rem;">A custom composite rating based on avg, strike rate, boundary %, and consistency.</p>
+    <form method="GET" action="/impact" style="display:flex; gap:0.8rem; align-items:flex-end;">
+        <div class="form-group" style="flex:1; margin:0;">
+            <label>Player Name</label>
+            <input type="text" name="player" value="{{ name }}" placeholder="e.g. V Kohli">
+        </div>
+        <button type="submit" class="btn">Calculate</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+<div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div>
+            <h2>{{ result.player }}</h2>
+            <p class="text-muted">{{ result.role }}</p>
+        </div>
+        <div style="text-align:right;">
+            <div style="font-size:2.8rem; font-weight:bold; color:#e94560;">{{ result.impactScore }}</div>
+            <div>
+                {% set tier = result.tier %}
+                <span class="tier-badge tier-{{ tier.replace(' ', '') }}">{{ tier }}</span>
+            </div>
+        </div>
+    </div>
+
+    {% if result.battingImpact %}
+    <h3 style="margin-top:1.5rem;">Batting Breakdown</h3>
+    <div class="stats-grid">
+        <div class="stat-box"><div class="val">{{ result.battingImpact.score }}</div><div class="lbl">Batting Score</div></div>
+        <div class="stat-box"><div class="val">{{ result.battingImpact.breakdown.average }}</div><div class="lbl">Average</div></div>
+        <div class="stat-box"><div class="val">{{ result.battingImpact.breakdown.strikeRate }}</div><div class="lbl">Strike Rate</div></div>
+        <div class="stat-box"><div class="val">{{ result.battingImpact.breakdown.boundaryPercentage }}%</div><div class="lbl">Boundary %</div></div>
+        <div class="stat-box"><div class="val">{{ result.battingImpact.breakdown.consistency }}%</div><div class="lbl">Consistency</div></div>
+    </div>
+    {% endif %}
+
+    {% if result.bowlingImpact %}
+    <h3 style="margin-top:1.5rem;">Bowling Breakdown</h3>
+    <div class="stats-grid">
+        <div class="stat-box"><div class="val">{{ result.bowlingImpact.score }}</div><div class="lbl">Bowling Score</div></div>
+        <div class="stat-box"><div class="val">{{ result.bowlingImpact.breakdown.wicketsPerMatch }}</div><div class="lbl">Wkts/Match</div></div>
+        <div class="stat-box"><div class="val">{{ result.bowlingImpact.breakdown.economy }}</div><div class="lbl">Economy</div></div>
+        <div class="stat-box"><div class="val">{{ result.bowlingImpact.breakdown.dotBallPercentage }}%</div><div class="lbl">Dot Ball %</div></div>
+        <div class="stat-box"><div class="val">{{ result.bowlingImpact.breakdown.consistency }}%</div><div class="lbl">Consistency</div></div>
+    </div>
+    {% endif %}
+
+    <div class="card" style="background:#f8f9fa; margin-top:1rem;">
+        <p class="text-muted" style="font-size:0.85rem;">
+            <strong>Formula:</strong>
+            Batting = (Avg/60 × 35%) + (SR/180 × 30%) + (Boundary% × 20%) + (Consistency × 15%) × 100<br>
+            Bowling = (Wkts/Match/3 × 35%) + (Economy score × 30%) + (Dot% × 20%) + (Consistency × 15%) × 100
+        </p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

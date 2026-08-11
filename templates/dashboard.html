@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — IPL Analytics{% endblock %}
+
+{% block content %}
+<div style="margin-top:1.5rem;">
+    <p class="page-title">Welcome, {{ session.username }} 👋</p>
+    <p class="text-muted">Choose what you want to explore.</p>
+</div>
+
+<div class="dash-grid" style="margin-top:1.5rem;">
+
+    <a href="/batsman" class="dash-card">
+        <div class="icon">🏏</div>
+        <div class="title">Batsman Record</div>
+        <div class="desc">Career stats, season split, phase analysis</div>
+    </a>
+
+    <a href="/bowler" class="dash-card">
+        <div class="icon">🎯</div>
+        <div class="title">Bowler Record</div>
+        <div class="desc">Wickets, economy, phase breakdown</div>
+    </a>
+
+    <a href="/team" class="dash-card">
+        <div class="icon">🆚</div>
+        <div class="title">Team vs Team</div>
+        <div class="desc">Head-to-head win record</div>
+    </a>
+
+    <a href="/team-record" class="dash-card">
+        <div class="icon">🏆</div>
+        <div class="title">Team Record</div>
+        <div class="desc">Overall + vs every opponent</div>
+    </a>
+
+    <a href="/leaderboard" class="dash-card">
+        <div class="icon">📊</div>
+        <div class="title">Leaderboard</div>
+        <div class="desc">Top run-scorers & wicket-takers</div>
+    </a>
+
+    <a href="/h2h" class="dash-card">
+        <div class="icon">⚡</div>
+        <div class="title">Player H2H</div>
+        <div class="desc">Batsman vs Bowler ball-level data</div>
+    </a>
+
+    <a href="/impact" class="dash-card">
+        <div class="icon">💥</div>
+        <div class="title">Impact Score</div>
+        <div class="desc">Custom composite player rating</div>
+    </a>
+
+    <a href="/predict" class="dash-card">
+        <div class="icon">🔮</div>
+        <div class="title">Match Predictor</div>
+        <div class="desc">Rule-based win probability</div>
+    </a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Team Record — IPL Analytics{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🏆 Team Overall Record</h2>
+    <form method="GET" action="/team-record" style="display:flex; gap:0.8rem; align-items:flex-end;">
+        <div class="form-group" style="flex:1; margin:0;">
+            <label>Select Team</label>
+            <select name="team">
+                <option value="">Choose a team</option>
+                {% for t in teams %}
+                    <option value="{{ t }}" {% if t == selected %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn">View Record</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+    {% set ov = result.overall %}
+    <div class="card">
+        <h2>{{ selected }}</h2>
+        <div class="stats-grid">
+            <div class="stat-box"><div class="val">{{ ov.matchesPlayed }}</div><div class="lbl">Played</div></div>
+            <div class="stat-box"><div class="val">{{ ov.won }}</div><div class="lbl">Won</div></div>
+            <div class="stat-box"><div class="val">{{ ov.loss }}</div><div class="lbl">Lost</div></div>
+            <div class="stat-box"><div class="val">{{ ov.noResult }}</div><div class="lbl">No Result</div></div>
+            <div class="stat-box"><div class="val">{{ ov.winPercentage }}%</div><div class="lbl">Win %</div></div>
+            <div class="stat-box"><div class="val">{{ ov.titles }}</div><div class="lbl">Titles</div></div>
+        </div>
+    </div>
+
+    {% if result.against %}
+    <div class="card">
+        <h2>Record vs Each Team</h2>
+        <table>
+            <thead>
+                <tr><th>Opponent</th><th>Played</th><th>Won</th><th>Lost</th><th>NR</th></tr>
+            </thead>
+            <tbody>
+                {% for opp, rec in result.against.items() %}
+                    {% if rec and rec.matchesPlayed > 0 %}
+                    <tr>
+                        <td>{{ opp }}</td>
+                        <td>{{ rec.matchesPlayed }}</td>
+                        <td>{{ rec.won }}</td>
+                        <td>{{ rec.loss }}</td>
+                        <td>{{ rec.noResult }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+{% endif %}
+{% endblock %}
