@@ -236,7 +236,8 @@ def predict():
 
 # ── Run ────────────────────────────────────────────────────────────────
 
+database.create_tables()  
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 7000))
-    database.create_tables()
     app.run(debug=False, host="0.0.0.0", port=port)
