@@ -31,7 +31,7 @@ def login_required(f):
 def api_get(endpoint, params=None):
     """Call the API service. Returns data dict or None on failure."""
     try:
-        r = requests.get(f"{API_BASE}{endpoint}", params=params, timeout=30)
+        r = requests.get(f"{API_BASE}{endpoint}", params=params, timeout=120)
         body = r.json()
         if body.get("status") == "success":
             return body["data"], None
