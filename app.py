@@ -29,16 +29,25 @@ def login_required(f):
 
 
 def api_get(endpoint, params=None):
-    """Call the API service. Returns data dict or None on failure."""
     try:
-        r = requests.get(f"{API_BASE}{endpoint}", params=params, timeout=120)
+        r = requests.get(
+            f"{API_BASE}{endpoint}",
+            params=params,
+            timeout=120
+        )
         body = r.json()
         if body.get("status") == "success":
             return body["data"], None
         return None, body.get("message", "Something went wrong")
-    except Exception as e:
-        return None, f"Could not reach API: {e}"
 
+    except requests.exceptions.Timeout:
+        return None, "The server is waking up — please try again in 30 seconds."
+
+    except requests.exceptions.ConnectionError:
+        return None, "Could not connect to the API. Please try again shortly."
+
+    except Exception as e:
+        return None, "Something went wrong. Please try again."
 
 def get_teams():
     """Fetch all team names — used by multiple pages."""
